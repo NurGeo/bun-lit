@@ -12,7 +12,7 @@ export class UserRepoImpl implements UserRepository {
   }
 
   async open() {
-    const path = '/path/to/package.json';
+    const path = import.meta.dir + '/users.json';
     const file = Bun.file(path);
     this._users = await file.json();
   }

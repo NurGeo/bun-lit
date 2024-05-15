@@ -9,9 +9,9 @@
   "module": "./src/server/index.ts",
   "type": "commonjs",
   "scripts": {
-    "bld": "bun build ./src/server/ui-index.ts --outdir dist; cp ./src/server/public/favicon.ico dist/; cp ./src/server/public/index.html dist/",
+    "bld": "rm -rf dist/; bun build ./src/server/ui-index.ts --outdir dist; cp ./src/server/public/favicon.ico dist/; cp ./src/server/public/index.html dist/",
     "tslint": "bun tsc --noEmit",
-    "start": "bun lint; bun bld; bun run --watch ./src/server/main.ts",
+    "start": "bun bld; bun run --watch ./src/server/main.ts",
     "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "devDependencies": {
@@ -28,6 +28,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@lit/task": "^1.0.0",
     "lit": "^3.1.3"
   }
 }

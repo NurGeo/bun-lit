@@ -2,8 +2,8 @@
 import { css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { W3CssElement } from '../../shared/ui/w3-css-element';
-import type { User } from './attrs';
 import { getRandomInt } from '../../shared/model/get-random-int';
+import type { UserAttrs } from '../../../api/domain/user/params';
 
 @customElement('user-element')
 export class UserElement extends W3CssElement {
@@ -14,7 +14,7 @@ export class UserElement extends W3CssElement {
   `;
 
   @property()
-  private user?: User;
+  private user?: UserAttrs;
 
   protected render(): unknown {
     return html`

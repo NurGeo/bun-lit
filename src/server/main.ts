@@ -9,20 +9,26 @@ const distDir = join(cwd(), 'dist');
 
 serve({
   port: PORT,
-  fetch(req) {
+  async fetch(req) {
     const url = new URL(req.url);
     let path = url.pathname;
 
-    if (path === '/') {
-      path = '/index.html';
+    if (path === '/' || path == '/ui-index.js') {
+      const filePath = path === '/' ? '/index.html' : path;
       try {
-        return new Response(Bun.file(join(distDir, path)));
+        return new Response(Bun.file(join(distDir, filePath)));
       } catch (error) {
         return new Response('Not Found', { status: 404 });
       }
     }
     if (path === '/users' || path === '/users/') {
-      return getJsonResponce(new GettingUsersService().execute());
+      try {
+        const service = new GettingUsersService();
+        const users = await service.execute();
+        return getJsonResponce(users);
+      } catch (e) {
+        return new Response('Error getting users', { status: 500 });
+      }
     }
     return new Response('bad request', { status: 404 });
   },

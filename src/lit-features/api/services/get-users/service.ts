@@ -1,10 +1,11 @@
-import type { UserAttrs } from "../../domain/user/params";
-import { UserRepoImpl } from "../../domain/user/repo-json-impl"
+import type { UserAttrs } from '../../domain/user/params';
+import { UserRepoImpl } from '../../domain/user/repo-json-impl';
 
 export class GettingUsersService {
-  execute(): UserAttrs[] {
+  async execute(): Promise<UserAttrs[]> {
     const repo = new UserRepoImpl();
-    repo.open();
+    await repo.open();
+    console.log('repo: ', repo.getUsers())
     return repo.getUsers();
   }
 }

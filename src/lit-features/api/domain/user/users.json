@@ -1,5 +1,5 @@
 [
   { "id": 1, "name": "Bill", "city": "Vermont", "age": 33 },
   { "id": 2, "name": "Jack", "city": "Washington", "age": 54 },
-  { "id": 3, "name": "Nurbolat", "city": "Uralsk", "age": 45 },
+  { "id": 3, "name": "Nurbolat", "city": "Uralsk", "age": 45 }
 ]
