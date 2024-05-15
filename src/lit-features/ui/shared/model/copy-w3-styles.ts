@@ -10,7 +10,7 @@ export function copyW3Styles(shadowRoot: ShadowRoot) {
       return;
     }
   }
-  
+
   // Клонируем элемент стиля и добавляем его в Shadow DOM
   shadowRoot.appendChild(w3StyleElement.cloneNode(true));
 }

@@ -10,15 +10,7 @@
     1. решение задачи использования "разумного и эффективного" внедрения и использования внешних css-фреймворков (на основе w3-css) для визуализации внутреннего (теневого) DOM элемента;
 
 ## **Установка и запуск**
-Установка `git clone`
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run server.js
-```
-
-This project was created using `bun init` in bun v1.1.7. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Установка: `git clone git@github.com:NurGeo/bun-lit.git`
+Установка зависимостей: `bun install`
+Запуск: `bun start`
+Чтобы попробовать идем по url: `http://localhost:3000/`

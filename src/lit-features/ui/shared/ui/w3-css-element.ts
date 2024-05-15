@@ -1,5 +1,5 @@
-import { LitElement } from "lit";
-import { copyW3Styles } from "../model/copy-w3-styles";
+import { LitElement } from 'lit';
+import { copyW3Styles } from '../model/copy-w3-styles';
 
 export class W3CssElement extends LitElement {
   connectedCallback() {
