@@ -11,6 +11,9 @@
 
 ## **Установка и запуск**
 Установка: `git clone git@github.com:NurGeo/bun-lit.git`
+
 Установка зависимостей: `bun install`
+
 Запуск: `bun start`
+
 Чтобы попробовать идем по url: `http://localhost:3000/`
