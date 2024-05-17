@@ -5,7 +5,6 @@ export class GettingUsersService {
   async execute(): Promise<UserAttrs[]> {
     const repo = new UserRepoImpl();
     await repo.open();
-    console.log('repo: ', repo.getUsers())
     return repo.getUsers();
   }
 }

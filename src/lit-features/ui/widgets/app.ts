@@ -1,6 +1,6 @@
 /** Главный компонент приложения. С него начинается компоноваться все приложение. */
 import { html, css } from 'lit';
-import { Task } from '@lit/task';
+import { Task, TaskStatus } from '@lit/task';
 import { customElement, property } from 'lit/decorators.js';
 import { W3CssElement } from '../shared/ui/w3-css-element';
 import { getRandomInt } from '../shared/model/get-random-int';
@@ -16,33 +16,36 @@ export class AppWidget extends W3CssElement {
     }
   `;
 
-  @property()
+  private loadWhiteStatus: Array<number> = [TaskStatus.INITIAL, TaskStatus.PENDING];
+
+  @property({ type: Array })
   private users: UserAttrs[] = [];
 
   _getUsersTask = new Task(this, {
     task: async ([], { signal }) => {
-      const response = await fetch('http://localhost:3000/users', { signal });
+      const response = await fetch('/api/users', { signal });
       if (!response.ok) { throw new Error(String(response.status)); }
       return response.json();
     },
     args: () => [],
+    onComplete: (users: UserAttrs[]) => {
+      this.users = users;
+    },
   });
 
-  render() {
-    return this._getUsersTask.render({
-      pending: () => html`<p>App loading...</p>`,
-      complete: (users) => {
-        this.users = users;
-        return html`
-          <h2>Hello, ${this.users[getRandomInt(0, 3)].name}!!!</h2>
-          <users-widget .users=${this.users}></users-widget>
-        `
-      },
-      error: (e) => html`<p>Error: ${e}</p>`
-    });
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._getUsersTask.run();
   }
 
-  render_() {
-    return ;
+  render() {
+    return this.loadWhiteStatus.includes(this._getUsersTask.status)
+      ? html`<loading-modal message="Загрузка"></loading-modal>`
+      : this.users.length === 0
+        ? html`<h2>Нет пользователей</h2>`
+        : html`
+          <h2>Hello, ${this.users[getRandomInt(0, this.users.length)].name}!!!</h2>
+          <users-widget .users=${this.users}></users-widget>
+        `;
   }
 }

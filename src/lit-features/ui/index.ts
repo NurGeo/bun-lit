@@ -2,3 +2,5 @@
 export * from './widgets/app';
 export * from './widgets/users';
 export * from './entities/user/element';
+export * from  './shared/ui/loading-modal';
+export * from './features/add-user';

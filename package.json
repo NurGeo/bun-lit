@@ -9,10 +9,10 @@
   "module": "./src/server/index.ts",
   "type": "commonjs",
   "scripts": {
-    "bld": "rm -rf dist/; bun build ./src/server/ui-index.ts --outdir dist; cp ./src/server/public/favicon.ico dist/; cp ./src/server/public/index.html dist/",
-    "tslint": "bun tsc --noEmit",
     "start": "bun bld; bun run --watch ./src/server/main.ts",
-    "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "bld": "rm -rf dist/; bun build ./src/server/ui-index.ts --outdir dist; cp ./src/server/public/favicon.ico dist/; cp ./src/server/public/index.html dist/",
+    "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "tslint": "bun tsc --noEmit"
   },
   "devDependencies": {
     "@types/bun": "latest",
