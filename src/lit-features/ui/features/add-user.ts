@@ -102,10 +102,6 @@ export class AddUserFormElement extends LitElement {
     `;
   }
 
-  firstUpdated() {
-    setTimeout(() => this.nameInput.focus(), 0 );
-  }
-
   handleInput(field: 'name' | 'city' | 'age') {
     return (e: Event) => {
       const value = (e.target as HTMLInputElement).value;
