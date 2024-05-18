@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, type HTMLTemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 const styles = css`
@@ -53,16 +53,16 @@ const styles = css`
 
 @customElement('loading-modal')
 export class LoadingModal extends LitElement {
-  @property({ type: String }) message: string = '';
+  @property({ type: String }) message = '';
 
   static styles = styles;
 
-  render() {
+  render(): HTMLTemplateResult {
     return html`
       <div class="modal show">
         <div class="spinner"></div>
         ${this.message ? html`<div class="message">${this.message}</div>` : ''}
       </div>
-    `
+    `;
   }
 }

@@ -1,5 +1,6 @@
+/* eslint-disable no-underscore-dangle */
 /** Главный компонент приложения. С него начинается компоноваться все приложение. */
-import { html, css } from 'lit';
+import { html, css, type HTMLTemplateResult } from 'lit';
 import { Task, TaskStatus } from '@lit/task';
 import { customElement, property } from 'lit/decorators.js';
 import { W3CssElement } from '../shared/ui/w3-css-element';
@@ -22,13 +23,14 @@ export class AppWidget extends W3CssElement {
   private users: UserAttrs[] = [];
 
   _getUsersTask = new Task(this, {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, no-empty-pattern
     task: async ([], { signal }) => {
       const response = await fetch('/api/users', { signal });
       if (!response.ok) { throw new Error(String(response.status)); }
       return response.json();
     },
-    args: () => [],
-    onComplete: (users: UserAttrs[]) => {
+    args: (): [] => [],
+    onComplete: (users: UserAttrs[]): void => {
       this.users = users;
     },
   });
@@ -38,7 +40,7 @@ export class AppWidget extends W3CssElement {
     this._getUsersTask.run();
   }
 
-  render() {
+  render(): HTMLTemplateResult {
     return this.loadWhiteStatus.includes(this._getUsersTask.status)
       ? html`<loading-modal message="Загрузка"></loading-modal>`
       : this.users.length === 0

@@ -1,5 +1,5 @@
 // Замена randomInt на собственную реализацию с использованием Web Crypto API
-export function getRandomInt(min: number, max: number) {
+export function getRandomInt(min: number, max: number): number {
   const range = max - min;
   const randomBuffer = new Uint32Array(1);
   crypto.getRandomValues(randomBuffer);

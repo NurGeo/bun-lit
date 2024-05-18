@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { LitElement, html, css, type HTMLTemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { loadShower } from '../shared/model/load-shower';
 
 const styles = css`
@@ -58,11 +58,14 @@ export class AddUserFormElement extends LitElement {
   static styles = styles;
 
   @property({ type: String }) name = '';
+
   @property({ type: String }) city = '';
+
   @property({ type: Number }) age = 0;
+
   @property({ type: Boolean, reflect: true }) open = false;
 
-  render() {
+  render(): HTMLTemplateResult {
     return html`
       <div class="modal" ?open="${this.open}">
         <div class="modal-content w3-card-4">
@@ -103,8 +106,8 @@ export class AddUserFormElement extends LitElement {
   }
 
   handleInput(field: 'name' | 'city' | 'age') {
-    return (e: Event) => {
-      const value = (e.target as HTMLInputElement).value;
+    return (e: Event): void => {
+      const { value } = (e.target as HTMLInputElement);
       // @ts-ignore
       this[field] = field === 'age'
         ? Number(value)
@@ -112,7 +115,7 @@ export class AddUserFormElement extends LitElement {
     };
   }
 
-  async handleSubmit(e: Event) {
+  async handleSubmit(e: Event): Promise<void> {
     e.preventDefault();
     const userData = {
       name: this.name,
@@ -120,30 +123,31 @@ export class AddUserFormElement extends LitElement {
       age: this.age,
     };
     loadShower.show();
-    const res = await fetch(`/api/users`, {
+    const res = await fetch('/api/users', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(userData),
     });
     const result = await res.json();
     loadShower.hide();
     if (res.ok) {
       this.dispatchEvent(new CustomEvent('user-added', {
-        detail: { id: result, ...userData, }
+        detail: { id: result, ...userData },
       }));
     } else {
+      // eslint-disable-next-line no-alert
       alert(result);
     }
     this.closeModal();
   }
 
-  closeModal() {
+  closeModal(): void {
     this.open = false;
   }
 
-  openModal() {
+  openModal(): void {
     this.open = true;
   }
 }

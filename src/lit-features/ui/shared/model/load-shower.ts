@@ -1,5 +1,5 @@
 class LoadShower {
-  private loadModal?: HTMLElement
+  private loadModal?: HTMLElement;
 
   show(): void {
     if (this.loadModal === undefined) {
@@ -10,7 +10,7 @@ class LoadShower {
 
   hide(): void {
     if (this.loadModal) {
-      this.loadModal.remove()
+      this.loadModal.remove();
       this.loadModal = undefined;
     }
   }

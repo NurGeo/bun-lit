@@ -1,5 +1,5 @@
 /* Компонент группы пользователей получаемых с бекенда * */
-import { html } from 'lit';
+import { html, type HTMLTemplateResult } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { W3CssElement } from '../shared/ui/w3-css-element';
 import type { UserAttrs } from '../../api/domain/user/params';
@@ -13,7 +13,7 @@ export class UsersWidget extends W3CssElement {
   @query('add-user-form')
   private addUserForm!: AddUserFormElement;
 
-  render() {
+  render(): HTMLTemplateResult {
     return html`<fieldset class="w3-border-red">
         <legend>Пользователи:</legend>
           ${this.users?.map((user) => html`
@@ -28,7 +28,7 @@ export class UsersWidget extends W3CssElement {
               >
                 <button
                   class="w3-btn w3-round w3-pale-red"
-                  @click=${() => this.removeUser(user.id)}
+                  @click=${(): Promise<void> => this.removeUser(user.id)}
                 >Remove</button>
               </div>
             </div>
@@ -45,23 +45,23 @@ export class UsersWidget extends W3CssElement {
     `;
   }
 
-  private openAddUserForm() {
+  private openAddUserForm(): void {
     this.addUserForm.openModal();
   }
 
-  private handleUserAdded(event: CustomEvent<UserAttrs>) {
+  private handleUserAdded(event: CustomEvent<UserAttrs>): void {
     const newUser = event.detail;
     this.users = [...this.users, newUser];
   }
 
-  private async removeUser(id: number) {
+  private async removeUser(id: number): Promise<void> {
     loadShower.show();
     const response = await fetch(`/api/users/${id}`, { method: 'DELETE' });
     loadShower.hide();
     if (response.ok) {
-      this.users = this.users.filter(user => user.id !== id);
+      this.users = this.users.filter((user) => user.id !== id);
     } else {
-      alert(`Filed to remove user by id: ${id}`);
+      throw Error(`Filed to remove user by id: ${id}`);
     }
   }
 }

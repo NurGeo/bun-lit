@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import type { UserAttrs } from './params';
 import type { UserRepository } from './repo';
 
@@ -29,6 +30,7 @@ export class UserRepoImpl implements UserRepository {
   async addUser(attrs: Omit<UserAttrs, 'id'>): Promise<number> {
     const newId = this.users[this.users.length - 1].id + 1;
     if (this.users.find((user) => user.id === newId)) {
+      // eslint-disable-next-line no-console
       console.log('ERROR: user id calculated error');
       return -1;
     }

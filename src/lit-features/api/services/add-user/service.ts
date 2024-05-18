@@ -1,5 +1,5 @@
-import type { UserAttrs } from "../../domain/user/params";
-import { UserRepoImpl } from "../../domain/user/repo-json-impl";
+import type { UserAttrs } from '../../domain/user/params';
+import { UserRepoImpl } from '../../domain/user/repo-json-impl';
 
 export class AddingUserService {
   async execute(attrs: Omit<UserAttrs, 'id'>): Promise<number> {
